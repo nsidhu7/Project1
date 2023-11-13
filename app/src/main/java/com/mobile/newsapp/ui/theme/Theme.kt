@@ -16,24 +16,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
+private val darkColorScheme = darkColorScheme(
     primaryContainer = Color.Black,
     onPrimaryContainer = Color.White
 )
 
-private val LightColorScheme = lightColorScheme(
-    primaryContainer = Purple,
-    onPrimaryContainer = Color.White
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val lightColorScheme = lightColorScheme(
+    primaryContainer = RoyalBlue,
+    onPrimaryContainer = Color.White
 )
 
 @Composable
@@ -49,8 +40,8 @@ fun NewsAppTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> darkColorScheme
+        else -> lightColorScheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -58,6 +49,8 @@ fun NewsAppTheme(
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primaryContainer.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+
+
         }
     }
 
