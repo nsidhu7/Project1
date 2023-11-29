@@ -14,11 +14,14 @@ import com.mobile.newsapp.ui.component.NewsArticleCard
 fun NewsScreen(
     viewModel: NewsScreenViewModel = hiltViewModel()
 ){
+    // LazyColumn to efficiently handle large lists of items
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(16.dp)
     ) {
+        // Iterate over the list of articles provided by the ViewModel
         items(viewModel.articles) { article ->
+            // Display each news article using the NewsArticleCard composable
             NewsArticleCard(article = article, onCardClicked = {})
         }
     }

@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    @Provides
+    @Provides // Provides a singleton instance of NewsApi
     @Singleton
     fun provideNewsApi(): NewsApi {
         val retrofit = Retrofit.Builder()
@@ -25,6 +25,7 @@ object AppModule {
         return retrofit.create(NewsApi::class.java)
     }
 
+    // Provides a singleton instance of NewsRepository with NewsApi dependency
     @Provides
     @Singleton
     fun provideNewsRepository(newsApi: NewsApi): NewsRepository {

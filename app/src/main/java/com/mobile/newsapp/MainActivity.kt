@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NewsAppTheme {
-                NewsScreen()
+            NewsAppTheme { // Apply the NewsAppTheme to the entire content
+                NewsScreen() // Display the NewsScreen composable
 
             }
         }

@@ -17,8 +17,8 @@ import retrofit2.http.Url
 
 @Composable
 fun ImageHolder(
-    imageUrl: String?,
-    modifier: Modifier = Modifier
+    imageUrl: String?, // The URL of the image to be loaded
+    modifier: Modifier = Modifier // Modifier for customizing the layout of the ImageHolder
 ) {
     AsyncImage(
         model = ImageRequest
@@ -26,13 +26,13 @@ fun ImageHolder(
             .data(imageUrl)
             .crossfade(true)
             .build(),
-        contentDescription = "Image",
+        contentDescription = "Image", // Accessibility content description for the image
         contentScale = ContentScale.Crop,
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
             .fillMaxWidth()
             .aspectRatio(16 / 9f),
-        placeholder = painterResource(id = R.drawable.loading),
-        error = painterResource(id = R.drawable.news)
+        placeholder = painterResource(id = R.drawable.loading), // Placeholder image resource while loading
+        error = painterResource(id = R.drawable.news) // Error image resource to display on image load failure
     )
 }

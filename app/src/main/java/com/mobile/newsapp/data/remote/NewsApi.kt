@@ -9,6 +9,7 @@ interface NewsApi {
 
     // GET https://newsapi.org/v2/top-headlines?country=us&apiKey=14ad125f5a5748c4b36f180c8bb611a5
 
+    // Retrofit annotation for making a GET request to the "top-headlines" endpoint
     @GET("top-headlines")
     suspend fun getBreakingNews(
         @Query("category") category: String,
@@ -16,7 +17,9 @@ interface NewsApi {
         @Query("apikey") apiKey: String = API_KEY
     ) : NewsResponse
     companion object{
+        // Base URL for the News API
         const val BASE_URL = "https://newsapi.org/v2/"
+        // API key for authentication
         const val API_KEY = "14ad125f5a5748c4b36f180c8bb611a5"
     }
 }

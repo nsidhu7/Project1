@@ -19,19 +19,22 @@ class NewsScreenViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ): ViewModel()
 {
+    // The list of articles, observed by the UI
     var articles by mutableStateOf<List<Article>>(emptyList())
 
-    init {
+    init { // Initialization block to fetch news articles on ViewModel creation
         getNewsArticles(category = "general")
     }
 
-    private fun getNewsArticles(category: String){
+    private fun getNewsArticles(category: String){     // Function to get news articles from the repository
         viewModelScope.launch {
             val result = newsRepository.getTopHeadlines(category)
             when (result) {
                 is Resource.Success -> {
+                    // Set the list of articles on successful data retrieval
                     articles = result.data ?: emptyList()
                 }
+                // Set the list of articles on successful data retrieval
                 is Resource.Error -> TODO()
             }
         }
