@@ -6,17 +6,17 @@ import com.mobile.newsapp.domain.model.Article
 sealed class NewsScreenEvent{
 
     // Event triggered when a news card is clicked
-    data class onNewsCardClicked(val article: Article): NewsScreenEvent()
+    data class OnNewsCardClicked(val article: Article): NewsScreenEvent()
 
     // Event triggered when the category is changed
-    data class onCategoryChanged(val category: String): NewsScreenEvent()
+    data class OnCategoryChanged(val category: String): NewsScreenEvent()
 
     // Event triggered when the search query is changed
-    data class onSearchQueryChanged(val searchQuery: String): NewsScreenEvent()
+    data class OnSearchQueryChanged(val searchQuery: String): NewsScreenEvent()
 
     // Event triggered when the search icon is clicked
-    object onSerchIconClicked: NewsScreenEvent()
+    object OnSearchIconClicked: NewsScreenEvent()
 
     // Event triggered when the close icon is clicked
-    object onCloseIconClicked: NewsScreenEvent()
+    object OnCloseIconClicked: NewsScreenEvent()
 }

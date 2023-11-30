@@ -25,17 +25,17 @@ class NewsScreenViewModel @Inject constructor(
     // ViewModel state to manage UI-related data and events
     var state by mutableStateOf(NewsScreenState())
 
-    fun onEvent(event: NewsScreenEvent){  // Function to handle UI events triggered by the UI layer
+    fun onEvent(event: NewsScreenEvent){  // Function to handle all events
         when(event){
-            is NewsScreenEvent.onCategoryChanged -> {
+            is NewsScreenEvent.OnCategoryChanged -> {
                 // Update the category in the ViewModel state and fetch new articles
                 state = state.copy(category =  event.category)
                 getNewsArticles(state.category)
             }
-            NewsScreenEvent.onCloseIconClicked -> TODO()
-            is NewsScreenEvent.onNewsCardClicked -> TODO()
-            is NewsScreenEvent.onSearchQueryChanged -> TODO()
-            NewsScreenEvent.onSerchIconClicked -> TODO()
+            NewsScreenEvent.OnCloseIconClicked -> TODO()
+            is NewsScreenEvent.OnNewsCardClicked -> TODO()
+            is NewsScreenEvent.OnSearchQueryChanged -> TODO()
+            NewsScreenEvent.OnSearchIconClicked -> TODO()
         }
     }
 

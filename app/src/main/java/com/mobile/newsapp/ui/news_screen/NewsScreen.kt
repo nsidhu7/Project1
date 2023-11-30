@@ -37,7 +37,9 @@ fun NewsScreen(
     state: NewsScreenState,
     onEvent: (NewsScreenEvent) -> Unit
 ){
+    // created value to provide Scroll Behavior
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     val categories = listOf(
@@ -48,9 +50,10 @@ fun NewsScreen(
     LaunchedEffect(key1 = pagerState ){
         snapshotFlow { pagerState.currentPage }.collect { page ->
             // Notify the ViewModel about the category change when the page changes
-            onEvent(NewsScreenEvent.onCategoryChanged(category = categories[page]))
+            onEvent(NewsScreenEvent.OnCategoryChanged(category = categories[page]))
         }
     }
+    //Using Scaffold to use NewsScreenTopBar on screen
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {

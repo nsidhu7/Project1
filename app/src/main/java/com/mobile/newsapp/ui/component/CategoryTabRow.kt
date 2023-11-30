@@ -37,6 +37,7 @@ fun CategoryTabRow(
                 onClick = { onTabSelected(index) },
                 // Provide the content for the tab
                 content = {
+                    //content is simple text for every single category
                     Text(
                         text = category,
                         modifier = Modifier.padding(vertical = 8.dp, horizontal = 2.dp))
