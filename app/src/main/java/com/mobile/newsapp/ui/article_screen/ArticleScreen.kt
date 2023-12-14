@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,16 +38,18 @@ fun ArticleScreen(
         mutableStateOf(true)
     }
 
+    // Scaffold provides the basic structure for your screen
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
+            // TopAppBar for displaying the app bar with title and navigation icon
             TopAppBar(
                 title = { Text(text = "Article", fontWeight = FontWeight.Bold) },
                 // Define the actions in the app bar
                 navigationIcon = {
                     // Use IconButton for clickable icon button
                     IconButton(onClick = onBackPressed) {
-                        // Use the Icons.Default.Search vector for the search icon
+                        // Use the Icons.Default.ArrowBack vector for the back icon
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
@@ -58,17 +59,19 @@ fun ArticleScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
-
             )
         }
-    ) {padding ->
+    ) { padding ->
+        // Box for positioning child elements and setting content alignment
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
             contentAlignment = Alignment.Center,
         ){
+            // AndroidView for embedding Android views in Compose
             AndroidView(factory = {
+                // WebView to display web content
                 WebView(context).apply {
                     webViewClient = object : WebViewClient() {
                         override fun onPageFinished(view: WebView?, url: String?) {
@@ -78,6 +81,7 @@ fun ArticleScreen(
                     loadUrl(url ?: "")
                 }
             })
+            // Show a loading indicator while the web page is loading
             if (isLoading && url != null) {
                 CircularProgressIndicator()
             }

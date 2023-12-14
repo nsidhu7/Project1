@@ -19,6 +19,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.sp
 
+/**
+ * Composable for the search app bar with a text field, search icon, and close icon.
+ *
+ * @param modifier Modifier for styling or positioning of the [TextField].
+ * @param value Current value of the search text.
+ * @param onValueChange Callback for when the search text changes.
+ * @param onCloseIconClicked Callback for when the close icon is clicked.
+ * @param onSearchClicked Callback for when the search icon or keyboard search action is triggered.
+ */
 @Composable
 fun SearchAppBar(
     modifier: Modifier = Modifier,
@@ -27,12 +36,14 @@ fun SearchAppBar(
     onCloseIconClicked: () -> Unit,
     onSearchClicked: () -> Unit,
 ) {
+    // TextField for entering search text
     TextField(
         modifier = modifier.fillMaxWidth(),
         value = value,
         onValueChange = onValueChange,
         textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
         leadingIcon = {
+            // Search icon
             Icon(
                 imageVector = Icons.Filled.Search,
                 contentDescription = "Search Icon",
@@ -40,9 +51,11 @@ fun SearchAppBar(
             )
         },
         placeholder = {
+            // Placeholder text for search
             Text(text = "Search...", color = Color.White.copy(alpha = 0.7f))
         },
         trailingIcon = {
+            // Close icon or clear text icon
             IconButton(onClick = {
                 if (value.isNotEmpty()) onValueChange("")
                 else onCloseIconClicked()

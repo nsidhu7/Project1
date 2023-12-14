@@ -14,36 +14,49 @@ import com.mobile.newsapp.ui.news_screen.NewsScreenViewModel
 @Composable
 fun NavGraphSetup(
     navController: NavHostController
-){
+) {
+    // Key for the URL argument passed to the ArticleScreen
     val argKey = "web_url"
-    NavHost(navController = navController,
+
+    NavHost(
+        navController = navController,
         startDestination = "news_screen"
-    ){
-        composable(route = "news_screen"){
-           // Retrieve the NewsScreenViewModel using Hilt
+    ) {
+        // Composable for the NewsScreen
+        composable(route = "news_screen") {
+            // Retrieve the NewsScreenViewModel using Hilt
             val viewModel: NewsScreenViewModel = hiltViewModel()
+
             // Display the NewsScreen composable with the ViewModel
             NewsScreen(
                 // Pass the state and event callback to NewsScreen
                 state = viewModel.state,
                 onEvent = viewModel::onEvent,
                 onReadFullStoryButtonClicked = { url ->
+                    // Navigate to ArticleScreen with the URL as a query parameter
                     navController.navigate("article_screen?$argKey=$url")
                 }
             )
         }
+
+        // Composable for the ArticleScreen with a URL argument
         composable(
             route = "article_screen?$argKey={$argKey}",
-            arguments = listOf(navArgument(name = argKey){
+            arguments = listOf(navArgument(name = argKey) {
                 type = NavType.StringType
             })
-        ){ backStackEntry ->
-                ArticleScreen(
-                    url = backStackEntry.arguments?.getString(argKey),
-                    onBackPressed = {
-                        navController.navigateUp()
-                    }
-                )
-            }
+        ) { backStackEntry ->
+            // Retrieve the URL argument from the back stack entry
+            val url = backStackEntry.arguments?.getString(argKey)
+
+            // Display the ArticleScreen composable with the URL and back navigation callback
+            ArticleScreen(
+                url = url,
+                onBackPressed = {
+                    // Navigate back when the back button is clicked
+                    navController.navigateUp()
+                }
+            )
+        }
     }
 }

@@ -18,17 +18,19 @@ import com.mobile.newsapp.ui.theme.NewsAppTheme
 import com.mobile.newsapp.util.NavGraphSetup
 import dagger.hilt.android.AndroidEntryPoint
 
+// AndroidEntryPoint annotation for Dagger Hilt integration
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set up the content using the NewsAppTheme
         setContent {
             NewsAppTheme {
+                // Remember the navigation controller to manage navigation
                 val navController = rememberNavController()
+                // Set up the navigation graph
                 NavGraphSetup(navController = navController)
-
             }
         }
     }
 }
-

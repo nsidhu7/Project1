@@ -41,6 +41,7 @@ import com.mobile.newsapp.ui.component.CategoryTabRow
 import com.mobile.newsapp.ui.component.NewsArticleCard
 import com.mobile.newsapp.ui.component.NewsScreenTopBar
 import com.mobile.newsapp.ui.component.RetryContent
+import com.mobile.newsapp.ui.component.SearchAppBar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -95,6 +96,22 @@ fun NewsScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         Crossfade(targetState = state.isSearchBarVisible, label = "") { isVisible ->
             if(isVisible) {
+                SearchAppBar(
+                    value = "",
+                    onValueChange = {},
+                    onCloseIconClicked = { onEvent(NewsScreenEvent.OnCloseIconClicked)},
+                    onSearchClicked = {}
+                    )
+                NewsArticlesList(
+                    state = state,
+                    onNewsCardClicked = { article ->
+                        shouldBottomSheetShow = true
+                        onEvent(NewsScreenEvent.OnNewsCardClicked(article = article))
+                    },
+                    onRetry = {
+                        onEvent(NewsScreenEvent.OnCategoryChanged(state.category))
+                    }
+                )
 
             } else {
                 //Using Scaffold to use NewsScreenTopBar on screen
@@ -103,7 +120,9 @@ fun NewsScreen(
                     topBar = {
                         NewsScreenTopBar(
                             scrollBehavior = scrollBehavior,
-                            onSearchIconClicked = {})}
+                            onSearchIconClicked = {
+                                onEvent(NewsScreenEvent.OnSearchIconClicked)
+                            })}
                 ) { padding ->
                     Column(
                         modifier = Modifier
