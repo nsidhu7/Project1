@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.mobile.newsapp.ui.news_screen.NewsScreen
 import com.mobile.newsapp.ui.news_screen.NewsScreenViewModel
 import com.mobile.newsapp.ui.theme.NewsAppTheme
+import com.mobile.newsapp.util.NavGraphSetup
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,14 +24,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NewsAppTheme {
-                // Retrieve the NewsScreenViewModel using Hilt
-                val viewModel: NewsScreenViewModel = hiltViewModel()
-                // Display the NewsScreen composable with the ViewModel
-                NewsScreen(
-                    // Pass the state and event callback to NewsScreen
-                    state = viewModel.state,
-                    onEvent = viewModel::onEvent
-                )
+                val navController = rememberNavController()
+                NavGraphSetup(navController = navController)
 
             }
         }

@@ -32,10 +32,20 @@ class NewsScreenViewModel @Inject constructor(
                 state = state.copy(category =  event.category)
                 getNewsArticles(state.category)
             }
-            NewsScreenEvent.OnCloseIconClicked -> TODO()
-            is NewsScreenEvent.OnNewsCardClicked -> TODO()
+            is NewsScreenEvent.OnNewsCardClicked -> {
+                state = state.copy(selectedArticle = event.article)
+            }
+
+            NewsScreenEvent.OnSearchIconClicked -> {
+                state = state.copy(
+                    isSearchBarVisible = true,
+                    articles = emptyList())
+            }
+            NewsScreenEvent.OnCloseIconClicked -> {
+                state = state.copy(isSearchBarVisible = false)
+            }
             is NewsScreenEvent.OnSearchQueryChanged -> TODO()
-            NewsScreenEvent.OnSearchIconClicked -> TODO()
+
         }
     }
 
@@ -54,11 +64,18 @@ class NewsScreenViewModel @Inject constructor(
                     // Set the list of articles on successful data retrieval
                     state = state.copy(
                         articles = result.data ?: emptyList(),
-                        isloading = false
+                        isloading = false,
+                        error = null
                     )
                 }
                 // Handle error scenario
-                is Resource.Error -> TODO()
+                is Resource.Error -> {
+                    state = state.copy(
+                        error = result.message,
+                        isloading = false,
+                        articles = emptyList()
+                    )
+                }
             }
         }
     }
